@@ -9,7 +9,7 @@ public class MatrixAdd {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter number of r: ");
+        System.out.print("Enter number of rows: ");
         int r = scanner.nextInt();
         System.out.print("Enter number of columns: ");
         int c = scanner.nextInt();
