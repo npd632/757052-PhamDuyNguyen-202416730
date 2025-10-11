@@ -2,9 +2,10 @@ Question: If you create a constructor method to build a DVD by title then create
 Does JAVA allow you to do this?
 
 Answer:
-No, this will raise an error since the two parameter lists are the same:
+Assuming the two mentioned constructor methods are built as following:
 
 public DVD(String title) {
+    super()
 	this.title = title;
 }
 
@@ -14,7 +15,7 @@ public DVD(String category) {
 	this.category = category;
 }
 
-this raises an error because the compiler only takes into consideration the parameter list or 'signature' (in this case, only String),
+This WILL RAISE AN ERROR because the compiler only takes into consideration the parameter list or 'signature' (in this case, only String),
 and ignores the variable name (title and category). So, the compiler would have no way to know whether 'new DVD("ABC")' is meant to
 call the title constructor for a movie titled 'ABC' or the category constructor for a movie in the 'ABC' category.
 
