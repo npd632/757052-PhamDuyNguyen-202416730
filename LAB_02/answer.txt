@@ -5,13 +5,14 @@ Answer:
 Assuming the two mentioned constructor methods are built as following:
 
 public DVD(String title) {
-    super()
+    super();
 	this.title = title;
 }
 
 and
 
 public DVD(String category) {
+    super();
 	this.category = category;
 }
 

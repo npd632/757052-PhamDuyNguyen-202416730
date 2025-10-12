@@ -41,7 +41,7 @@ public class DigitalVideoDisc {
         this.cost = cost;
     }
 
-    public DigitalVideoDisc(String director, String category, String title, float cost) {
+    public DigitalVideoDisc(String title, String category, String director, float cost) {
         super();
         this.director = director;
         this.category = category;
@@ -57,5 +57,5 @@ public class DigitalVideoDisc {
         this.length = length;
         this.cost = cost;
     }
-
+    
 }
