@@ -9,6 +9,12 @@ public class DigitalVideoDisc {
     
     private float cost;
 
+    private int createdTime;
+
+    public void setCreatedTime(int createdTime) {
+        this.createdTime = createdTime;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -27,6 +33,14 @@ public class DigitalVideoDisc {
 
     public float getCost() {
         return cost;
+    }
+
+    public int getCreatedTime() {
+        return createdTime;
+    }
+
+    public String getAllInfo() {
+        return "Title: " + title + ", Category: " + category + ", Director: " + director + ", Length: " + length + " mins, Cost: $" + cost;
     }
 
     public DigitalVideoDisc(String title) {
@@ -57,5 +71,5 @@ public class DigitalVideoDisc {
         this.length = length;
         this.cost = cost;
     }
-    
+
 }

@@ -46,4 +46,69 @@ public class Cart {
         }
         return total;
     }
+
+    public void printCart() {
+        System.out.println("***********************CART***********************");
+        for (int i = 0; i < qtyOrdered; i++) {
+            System.out.println((i + 1) + ". " + itemsOrdered[i].getAllInfo());
+        }
+        System.out.println("Total cost: $" + totalCost());
+        System.out.println("**************************************************");
+    }
+
+    public void sortByTitle() {
+        for (int i = 0; i < qtyOrdered - 1; i++) {
+            for (int j = i + 1; j < qtyOrdered; j++) {
+                if (itemsOrdered[i].getTitle().compareTo(itemsOrdered[j].getTitle()) > 0) {
+                    DigitalVideoDisc temp = itemsOrdered[i];
+                    itemsOrdered[i] = itemsOrdered[j];
+                    itemsOrdered[j] = temp;
+                }
+            }
+        }
+    }
+
+    public void sortByCost() {
+        for (int i = 0; i < qtyOrdered - 1; i++) {
+            for (int j = i + 1; j < qtyOrdered; j++) {
+                if (itemsOrdered[i].getCost() > itemsOrdered[j].getCost()) {
+                    DigitalVideoDisc temp = itemsOrdered[i];
+                    itemsOrdered[i] = itemsOrdered[j];
+                    itemsOrdered[j] = temp;
+                }
+            }
+        }
+    }
+
+    public int getQtyOrdered() {
+        return qtyOrdered;
+    }
+
+    public void filterByTitle(String title) {
+        System.out.println("Filter results for title containing '" + title + "':");
+        boolean found = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered[i].getTitle().toLowerCase().contains(title.toLowerCase())) {
+                System.out.println((i + 1) + ". " + itemsOrdered[i].getAllInfo());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No items found with title containing '" + title + "'.");
+        }
+    }
+
+    public void filterByIndex(int index) {
+        System.out.println("Filter results for index '" + index + "':");
+        if (index >= 1 && index <= qtyOrdered) {
+            System.out.println((index) + ". " + itemsOrdered[index - 1].getAllInfo());
+        } else {
+            System.out.println("No item found at index '" + index + "'.");
+        }
+    }
+
+    public DigitalVideoDisc[] getItemsOrdered() {
+        return itemsOrdered;
+    }
+
 }
