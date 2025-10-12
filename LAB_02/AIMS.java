@@ -59,13 +59,13 @@ public class AIMS {
             username = "Guest";
         }
 
-        mainMenu:
         while (true) {
             // Interface 1: List all DVDs
             System.out.println("\n--- DVD Store ---");
-            for (int i = 0; i < store.length; i++) {
+            for (int i = 0; i < 5; i++) {
                 System.out.println((i + 1) + ". " + store[i].getTitle());
             }
+            System.out.println("...");
             System.out.println("\nOptions:");
             System.out.println("1. Search for DVDs");
             System.out.println("2. View current cart");
@@ -76,7 +76,6 @@ public class AIMS {
 
             if (mainOption == 1) {
                 // Interface 2: Searching
-                searchInterface:
                 while (true) {
                     System.out.println("\nSearch by:");
                     System.out.println("1. Title");
@@ -99,7 +98,7 @@ public class AIMS {
                             }
                         }
                     } else if (searchOption == 2) {
-                        System.out.print("Enter category: ");
+                        System.out.print("Enter category (Action, Animation, Crime, Drama, Fantasy, Romance, Science Fiction, War): ");
                         String category = scanner.nextLine().toLowerCase();
                         for (DigitalVideoDisc dvd : store) {
                             if (dvd.getCategory().toLowerCase().equals(category)) {
@@ -144,15 +143,27 @@ public class AIMS {
                         System.out.print("Add this disc to cart? (y/n): ");
                         String add = scanner.nextLine();
                         if (add.equalsIgnoreCase("y")) {
-                            anOrder.addDigitalVideoDisc(selected);
-                            System.out.println("Returning to search result...");
-                            try { Thread.sleep(2000); } catch (InterruptedException e) {}
-                            continue searchResult;
+                            boolean alreadyInCart = false;
+                            for (DigitalVideoDisc dvd : anOrder.getItemsOrdered()) {
+                                if (dvd != null && dvd.equals(selected)) {
+                                    alreadyInCart = true;
+                                    break;
+                                }
+                            }
+                            if (alreadyInCart) {
+                                System.out.println("Disc already added to cart");
+                                try { Thread.sleep(1500); } catch (InterruptedException e) {}
+                                continue searchResult;
+                            } else {
+                                anOrder.addDigitalVideoDisc(selected);
+                                System.out.println("Returning to search result...");
+                                try { Thread.sleep(2000); } catch (InterruptedException e) {}
+                                continue searchResult;
+                            }
                         }
                     }
                 }
             } else if (mainOption == 2) {
-                cartView:
                 // Interface 3: Cart
                 if (anOrder.getQtyOrdered() == 0) {
                     System.out.println("Your cart is empty.");
