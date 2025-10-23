@@ -84,8 +84,8 @@ public class Cart {
         return qtyOrdered;
     }
 
-    public void filterByTitle(String title) {
-        System.out.println("Filter results for title containing '" + title + "':");
+    public void searchByTitle(String title) {
+        System.out.println("Search results for title containing '" + title + "':");
         boolean found = false;
         for (int i = 0; i < qtyOrdered; i++) {
             if (itemsOrdered[i].getTitle().toLowerCase().contains(title.toLowerCase())) {
@@ -98,12 +98,12 @@ public class Cart {
         }
     }
 
-    public void filterByIndex(int index) {
-        System.out.println("Filter results for index '" + index + "':");
-        if (index >= 1 && index <= qtyOrdered) {
-            System.out.println((index) + ". " + itemsOrdered[index - 1].getAllInfo());
+    public void searchById(int id) {
+        System.out.println("Search results for ID '" + id + "':");
+        if (id >= 1 && id <= qtyOrdered) {
+            System.out.println((id) + ". " + itemsOrdered[id - 1].getAllInfo());
         } else {
-            System.out.println("No item found at index '" + index + "'.");
+            System.out.println("No item found with ID '" + id + "'.");
         }
     }
 
