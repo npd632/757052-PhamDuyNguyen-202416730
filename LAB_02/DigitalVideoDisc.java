@@ -49,7 +49,7 @@ public class DigitalVideoDisc {
     }
 
     public String getAllInfo() {
-        return "Title: " + title + ", Category: " + category + ", Director: " + director + ", Length: " + length + " mins, Cost: $" + cost;
+        return "DVD - " + title + " - " + category + " - " + director + " - " + length + ": " + "$" + cost;
     }
 
     public DigitalVideoDisc(String title) {
