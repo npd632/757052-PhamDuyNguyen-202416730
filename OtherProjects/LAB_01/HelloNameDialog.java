@@ -1,4 +1,4 @@
-package LAB_01;
+package OtherProjects.LAB_01;
 import javax.swing.JOptionPane;
 
 public class HelloNameDialog {

@@ -1,3 +1,6 @@
+package AimsProject.src.aims.cart;
+import AimsProject.src.aims.disc.DigitalVideoDisc;
+
 public class Cart {
     public static final int MAX_NUMBERS_ORDERED = 20;
 
@@ -100,9 +103,16 @@ public class Cart {
 
     public void searchById(int id) {
         System.out.println("Search results for ID '" + id + "':");
-        if (id >= 1 && id <= qtyOrdered) {
-            System.out.println((id) + ". " + itemsOrdered[id - 1].getAllInfo());
-        } else {
+        boolean found = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            DigitalVideoDisc disc = itemsOrdered[i];
+            if (disc != null && disc.getId() == id) {
+            System.out.println((i + 1) + ". " + disc.getAllInfo());
+            found = true;
+            break;
+            }
+        }
+        if (!found) {
             System.out.println("No item found with ID '" + id + "'.");
         }
     }
