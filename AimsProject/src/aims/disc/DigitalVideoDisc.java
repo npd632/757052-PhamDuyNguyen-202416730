@@ -1,3 +1,5 @@
+package AimsProject.src.aims.disc;
+
 public class DigitalVideoDisc {
 
     private static int nbDigitalVideoDiscs = 0;
@@ -22,6 +24,10 @@ public class DigitalVideoDisc {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

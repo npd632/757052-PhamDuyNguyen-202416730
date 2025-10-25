@@ -1,3 +1,7 @@
+package AimsProject.src.test.cart;
+import AimsProject.src.aims.disc.DigitalVideoDisc;
+import AimsProject.src.aims.cart.Cart;
+
 public class CartTest {
     public static void main(String[] args) {
         Cart cart = new Cart();
