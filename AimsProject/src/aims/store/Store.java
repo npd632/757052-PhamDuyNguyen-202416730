@@ -1,5 +1,5 @@
-package AimsProject.src.aims.store;
-import AimsProject.src.aims.disc.DigitalVideoDisc;
+package aims.store;
+import aims.media.DigitalVideoDisc;
 
 public class Store {
     public static final int MAX_ITEMS_IN_STORE = 1000;

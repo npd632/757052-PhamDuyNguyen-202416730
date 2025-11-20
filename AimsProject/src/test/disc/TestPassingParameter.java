@@ -1,5 +1,5 @@
-package AimsProject.src.test.disc;
-import AimsProject.src.aims.disc.DigitalVideoDisc;
+package test.disc;
+import aims.media.DigitalVideoDisc;
 
 public class TestPassingParameter {
 
