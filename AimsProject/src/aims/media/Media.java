@@ -1,7 +1,10 @@
 package aims.media;
 
 public abstract class Media {
-    private int id;
+
+    public static int nbMedia = 0;
+
+    public int id;
 
     private String title;
 
@@ -23,6 +26,10 @@ public abstract class Media {
 
     public float getCost() {
         return cost;
+    }
+
+    public String getAllInfo() {
+        return "ID: " + id + " | Title: " + title + " | Category: " + category + " | Cost: $" + cost;
     }
 
     public void setId(int id) {

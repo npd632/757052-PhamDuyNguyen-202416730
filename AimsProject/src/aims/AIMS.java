@@ -64,11 +64,6 @@ public class AIMS {
             dvd36, dvd37, dvd38, dvd39, dvd40
         };
 
-        // Assign creation times
-        for (int i = 0; i < store.length; i++) {
-            store[i].setCreatedTime(i + 1);
-        }
-
         System.out.println("Welcome to AIMS!");
         System.out.println("1. Log in");
         System.out.println("2. Browse as guest");
@@ -190,7 +185,7 @@ public class AIMS {
                                 try { Thread.sleep(1500); } catch (InterruptedException e) {}
                                 continue searchResult;
                             } else {
-                                anOrder.addDigitalVideoDisc(selected);
+                                anOrder.addMedia(selected);
                                 System.out.println("Returning to search result...");
                                 try { Thread.sleep(2000); } catch (InterruptedException e) {}
                                 continue searchResult;
@@ -250,7 +245,7 @@ public class AIMS {
                         int idx = scanner.nextInt();
                         scanner.nextLine();
                         if (idx >= 1 && idx <= cartItems.length) {
-                            anOrder.removeDigitalVideoDisc(cartItems[idx - 1]);
+                            anOrder.removeMedia(cartItems[idx - 1]);
                         }
                     } else if (cartOption == 4) {
                         System.out.println("Filter by: 1. Title 2. Index");
@@ -301,7 +296,7 @@ public class AIMS {
                                 int idx = scanner.nextInt();
                                 scanner.nextLine();
                                 if (idx >= 1 && idx <= filtered.size() && filtered.get(idx - 1) != null) {
-                                    anOrder.removeDigitalVideoDisc(filtered.get(idx - 1));
+                                    anOrder.removeMedia(filtered.get(idx - 1));
                                     filtered.remove(idx - 1);
                                 }
                             } else {
