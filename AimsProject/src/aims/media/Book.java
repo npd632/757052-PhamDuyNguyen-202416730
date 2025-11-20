@@ -10,22 +10,18 @@ public class Book extends Media {
         return authors;
     }
 
-    public void getAllInfo() {
-        String info = "Book - " + getId() + " - " + getCategory() + " - Authors: ";
-        for (String author : authors) {
-            info += author + ", ";
-        }
-        info = info.substring(0, info.length() - 2); // Remove last comma and space
-        info += ": $" + getCost();
-        System.out.println(info);
+    @Override
+    public String getAllInfo() {
+        return "Book - " + getId() + " - " + getCategory() + " - " + String.join(", ", authors) + ": " + "$" + getCost();
     }
 
-    public Book(int id, String title, String category, float cost) {
+    public Book(String title, String category, float cost) {
         super();
-        setId(id);
         setTitle(title);
         setCategory(category);
         setCost(cost);
+        nbMedia += 1;
+        this.id = nbMedia;
     }
 
     public void addAuthor(String authorName) {
