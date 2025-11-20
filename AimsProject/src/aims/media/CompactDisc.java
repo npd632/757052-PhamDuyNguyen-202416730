@@ -2,7 +2,7 @@ package aims.media;
 
 import java.util.List;
 
-public class CompactDisc extends Disc {
+public class CompactDisc extends Disc implements Play {
     
     private String artist;
 
@@ -37,6 +37,15 @@ public class CompactDisc extends Disc {
             tracks.remove(track);
         } else {
             System.out.println("Track not found!");
+        }
+    }
+
+    @Override
+    public void play() {
+        System.out.println("Playing CD: " + getTitle());
+        System.out.println("CD length: " + getLength());
+        for (Track track : tracks) {
+            track.play();
         }
     }
     
