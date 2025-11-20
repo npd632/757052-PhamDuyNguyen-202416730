@@ -1,6 +1,6 @@
 package aims.media;
 
-public class Track {
+public class Track implements Play {
     private String title;
 
     private int length;
@@ -11,6 +11,12 @@ public class Track {
 
     public int getLength() {
         return length;
+    }
+
+    @Override
+    public void play() {
+        System.out.println("Playing track: " + this.getTitle());
+        System.out.println("Track length: " + this.getLength()); 
     }
 
     public Track(String title, int length) {
