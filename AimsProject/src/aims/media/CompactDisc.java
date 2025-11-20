@@ -55,7 +55,6 @@ public class CompactDisc extends Disc implements Play {
     }
     
     public CompactDisc(String title, String category, String director, float cost, String artist) {
-        super(title, category, director, 0, cost);
         setTitle(title);
         setCategory(category);
         setDirector(director);

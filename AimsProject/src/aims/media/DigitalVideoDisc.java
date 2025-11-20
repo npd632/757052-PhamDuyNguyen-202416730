@@ -14,7 +14,6 @@ public class DigitalVideoDisc extends Disc implements Play {
     }
 
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-        super(title, category, director, length, cost);
         setTitle(title);
         setCategory(category);
         setDirector(director);

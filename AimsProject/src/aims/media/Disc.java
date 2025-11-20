@@ -1,6 +1,6 @@
 package aims.media;
 
-public class Disc extends Media {
+public abstract class Disc extends Media {
     
     private int length;
     
@@ -20,14 +20,5 @@ public class Disc extends Media {
 
     public void setDirector(String director) {
         this.director = director;
-    }
-
-    public Disc(String title, String category, String director, int length, float cost) {
-        super();
-        setTitle(title);
-        setCategory(category);
-        setCost(cost);
-        this.director = director;
-        this.length = length;
     }
 }

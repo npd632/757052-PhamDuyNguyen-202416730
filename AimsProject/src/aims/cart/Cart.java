@@ -103,7 +103,7 @@ public class Cart {
     //     }
     // }
 
-    public DigitalVideoDisc[] getItemsOrdered() {
+    public Media[] getItemsOrdered() {
         return itemsOrdered.toArray(new DigitalVideoDisc[0]);
     }
 

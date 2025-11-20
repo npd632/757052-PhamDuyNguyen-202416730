@@ -7,7 +7,7 @@ import aims.media.Media;
 public class Store {
     public static final int MAX_ITEMS_IN_STORE = 1000;
     private ArrayList<Media> itemsInStore = new ArrayList<Media>();
-    private int qtyInStore = 0;
+    public static int qtyInStore = 0;
 
     public void addMedia(DigitalVideoDisc disc) {
         if (qtyInStore < MAX_ITEMS_IN_STORE) {
