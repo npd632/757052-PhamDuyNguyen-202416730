@@ -16,6 +16,6 @@ public class StoreTest {
 
         store.removeDVD(dvd2);
 
-        store.removeDVD(new DigitalVideoDisc("Test for DVD that does not exist"));
+        store.removeDVD(new DigitalVideoDisc("Test for DVD that does not exist", "Test", "Test Director", 100, 10.0f));
     }
 }

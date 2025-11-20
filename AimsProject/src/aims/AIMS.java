@@ -10,8 +10,8 @@ public class AIMS {
 
         DigitalVideoDisc dvd1  = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
         DigitalVideoDisc dvd2  = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 124, 24.95f);
-        DigitalVideoDisc dvd3  = new DigitalVideoDisc("Aladdin", "Animation", 18.99f);
-        DigitalVideoDisc dvd4  = new DigitalVideoDisc("Christopher Nolan", "Science Fiction", "Inception", 29.99f);
+        DigitalVideoDisc dvd3  = new DigitalVideoDisc("Aladdin", "Animation", "John Musker", 90, 18.99f);
+        DigitalVideoDisc dvd4  = new DigitalVideoDisc("Inception", "Science Fiction", "Christopher Nolan", 148, 29.99f);
         DigitalVideoDisc dvd5  = new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 22.99f);
         DigitalVideoDisc dvd6  = new DigitalVideoDisc("Interstellar", "Science Fiction", "Christopher Nolan", 169, 25.99f);
         DigitalVideoDisc dvd7  = new DigitalVideoDisc("Avatar", "Science Fiction", "James Cameron", 162, 27.99f);
