@@ -6,7 +6,7 @@ public class CompactDisc extends Disc implements Play {
     
     private String artist;
 
-    private List<Track> tracks;
+    private List<Track> tracks = new java.util.ArrayList<Track>();
     
     public String getArtist() {
         return artist;
@@ -26,11 +26,11 @@ public class CompactDisc extends Disc implements Play {
 
     @Override
     public String getAllInfo() {
-        return "CD - " + getId() + " - " + getCategory() + " - " + artist + " - " + getLength() + ": " + "$" + getCost();
+        return "CD - " + getTitle() + " - " + getCategory() + " - " + artist + " - " + getLength() + "mins: " + "$" + getCost();
     }
 
     public void addTrack(Track track) {
-        if (!tracks.contains(track)) {
+        if (!tracks.contains(track) || tracks.isEmpty() || tracks == null) {
             tracks.add(track);
         } else {
             System.out.println("Track already exists!");
@@ -52,6 +52,11 @@ public class CompactDisc extends Disc implements Play {
         for (Track track : tracks) {
             track.play();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "CD - " + getTitle() + " - " + getCategory() + " - " + artist + " - " + getLength() + "mins: " + "$" + getCost();
     }
     
     public CompactDisc(String title, String category, String director, float cost, String artist) {

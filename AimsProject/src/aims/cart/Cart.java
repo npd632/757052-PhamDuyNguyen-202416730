@@ -12,6 +12,12 @@ public class Cart {
     private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
 
     public void addMedia(Media media) {
+        for (Media item : itemsOrdered) {
+            if (item.equals(media)) {
+                System.out.println("Item already in cart: " + media.getTitle());
+                return;
+            }
+        }
         if (qtyOrdered < MAX_NUMBERS_ORDERED) {
             itemsOrdered.add(media);
             qtyOrdered++;
@@ -39,12 +45,12 @@ public class Cart {
     }
 
     public void printCart() {
-        System.out.println("***********************CART***********************\n Ordered Items:\n");
+        System.out.println("***********************************CART***********************************\n Ordered Items:\n");
         for (int i = 0; i < qtyOrdered; i++) {
             System.out.println((i + 1) + ". [" + itemsOrdered.get(i).getClass().getSimpleName() + "] " + itemsOrdered.get(i).getAllInfo());
         }
         System.out.println("Total cost: $" + totalCost());
-        System.out.println("**************************************************");
+        System.out.println("**************************************************************************");
     }
 
     public void sortByTitle() {

@@ -12,7 +12,12 @@ public class Book extends Media {
 
     @Override
     public String getAllInfo() {
-        return "Book - " + getId() + " - " + getCategory() + " - " + String.join(", ", authors) + ": " + "$" + getCost();
+        return "Book - " + getTitle() + " - " + getCategory() + " - " + String.join(", ", authors) + ": " + "$" + getCost();
+    }
+
+    @Override   
+    public String toString() {
+        return "Book - " + getTitle() + " - " + getCategory() + " - " + String.join(", ", authors) + ": " + "$" + getCost();
     }
 
     public Book(String title, String category, float cost) {
