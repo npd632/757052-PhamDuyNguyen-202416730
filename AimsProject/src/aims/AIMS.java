@@ -2,6 +2,8 @@ package aims;
 import java.util.*;
 import aims.cart.Cart;
 import aims.media.DigitalVideoDisc;
+import aims.media.Media;
+import aims.media.Track;
 
 public class AIMS {
     public static void main(String[] args) {
@@ -53,7 +55,7 @@ public class AIMS {
         boolean loggedIn = false;
         String username = "";
 
-        DigitalVideoDisc[] store = {
+        Media[] store = {
             dvd1, dvd2, dvd3, dvd4, dvd5,
             dvd6, dvd7, dvd8, dvd9, dvd10,
             dvd11, dvd12, dvd13, dvd14, dvd15,
@@ -64,5 +66,14 @@ public class AIMS {
             dvd36, dvd37, dvd38, dvd39, dvd40
         };
 
+        // Test equality
+        // DigitalVideoDisc testDvd1 = new DigitalVideoDisc("The Lion Kin", "Animation", "Roger Allers", 87, 19.95f);
+        // DigitalVideoDisc testDvd2 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
+        // System.out.println("Are the two DVDs equal? " + testDvd1.equals(testDvd2));
+
+        // Track track1 = new Track("Song A", 300);
+        // Track track2 = new Track("Song B", 300);
+        
+        // System.out.println("Are the two Tracks equal? " + track1.equals(track2));
     }
 }
