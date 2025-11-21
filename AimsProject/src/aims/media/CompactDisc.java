@@ -26,7 +26,7 @@ public class CompactDisc extends Disc implements Play {
 
     @Override
     public String getAllInfo() {
-        return "CD - " + getTitle() + " - " + getCategory() + " - " + artist + " - " + getLength() + "mins: " + "$" + getCost();
+        return "CD - ID: " + this.id + " - " + getTitle() + " - " + getCategory() + " - " + artist + " - " + getLength() + "mins: " + "$" + getCost();
     }
 
     public void addTrack(Track track) {
@@ -52,11 +52,6 @@ public class CompactDisc extends Disc implements Play {
         for (Track track : tracks) {
             track.play();
         }
-    }
-
-    @Override
-    public String toString() {
-        return "CD - " + getTitle() + " - " + getCategory() + " - " + artist + " - " + getLength() + "mins: " + "$" + getCost();
     }
     
     public CompactDisc(String title, String category, String director, float cost, String artist) {

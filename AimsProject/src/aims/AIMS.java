@@ -1,79 +1,386 @@
 package aims;
 import java.util.*;
 import aims.cart.Cart;
+import aims.media.Book;
+import aims.media.CompactDisc;
 import aims.media.DigitalVideoDisc;
 import aims.media.Media;
 import aims.media.Track;
+import aims.store.Store;
 
 public class AIMS {
-    public static void main(String[] args) {
 
-        Cart anOrder = new Cart();
+    public static void showMenu() {
+        System.out.println("AIMS: ");
+        System.out.println("--------------------------------");
+        System.out.println("1. View store");
+        System.out.println("2. Update store");
+        System.out.println("3. See current cart");
+        System.out.println("0. Exit");
+        System.out.println("--------------------------------");
+        System.out.println("Please choose a number: 0-1-2-3");
+    }
+
+    public static void storeMenu() {
+        // Options
+        System.out.println("Store Options: ");
+        System.out.println("--------------------------------");
+        System.out.println("1. See a media's details");
+        System.out.println("2. Add a media to cart");
+        System.out.println("3. Play a media");
+        System.out.println("4. See current cart");
+        System.out.println("0. Back");
+        System.out.println("--------------------------------");
+        System.out.println("Please choose a number: 0-1-2-3-4");
+    }
+
+    public static void mediaDetailsMenu(Media media) {
+        System.out.println("Media Details Options: ");
+        System.out.println("--------------------------------");
+        System.out.println("1. Add to cart");
+        if (media instanceof DigitalVideoDisc) {
+            System.out.println("2. Play DVD");
+            System.out.println("0. Back");
+        } else if (media instanceof CompactDisc) {
+            System.out.println("2. Play CD");
+            System.out.println("0. Back");
+        } else {
+            System.out.println("0. Back");
+        }
+        System.out.println("--------------------------------");
+        System.out.println("Please choose a number: 0-1-2");
+    }
+
+    public static void cartMenu() {
+        System.out.println("Cart Options: ");
+        System.out.println("--------------------------------");
+        System.out.println("1. Filter medias in cart");
+        System.out.println("2. Sort medias in cart");
+        System.out.println("3. Remove media from cart");
+        System.out.println("4. Play a media");
+        System.out.println("5. Place order");
+        System.out.println("0. Back");
+        System.out.println("--------------------------------");
+        System.out.println("Please choose a number: 0-1-2-3-4-5");
+    }
+
+    public static void sortMenu() {
+        System.out.println("Sorting Options: ");
+        System.out.println("--------------------------------");
+        System.out.println("1. Sort by title");
+        System.out.println("2. Sort by cost");
+        System.out.println("0. Back");
+        System.out.println("--------------------------------");
+        System.out.println("Please choose a number: 0-1-2");
+    }
+
+    public static void filterMenu() {
+        System.out.println("Filter Options: ");
+        System.out.println("--------------------------------");
+        System.out.println("1. Filter by title");
+        System.out.println("2. Filter by ID");
+        System.out.println("0. Back");
+        System.out.println("--------------------------------");
+        System.out.println("Please choose a number: 0-1-2");
+    }
+
+    public static void main(String[] args) {
 
         DigitalVideoDisc dvd1  = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
         DigitalVideoDisc dvd2  = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 124, 24.95f);
         DigitalVideoDisc dvd3  = new DigitalVideoDisc("Aladdin", "Animation", "John Musker", 90, 18.99f);
-        DigitalVideoDisc dvd4  = new DigitalVideoDisc("Inception", "Science Fiction", "Christopher Nolan", 148, 29.99f);
-        DigitalVideoDisc dvd5  = new DigitalVideoDisc("The Dark Knight", "Action", "Christopher Nolan", 152, 22.99f);
-        DigitalVideoDisc dvd6  = new DigitalVideoDisc("Interstellar", "Science Fiction", "Christopher Nolan", 169, 25.99f);
-        DigitalVideoDisc dvd7  = new DigitalVideoDisc("Avatar", "Science Fiction", "James Cameron", 162, 27.99f);
-        DigitalVideoDisc dvd8  = new DigitalVideoDisc("Titanic", "Romance", "James Cameron", 195, 20.99f);
-        DigitalVideoDisc dvd9  = new DigitalVideoDisc("The Godfather", "Crime", "Francis Ford Coppola", 175, 23.99f);
-        DigitalVideoDisc dvd10 = new DigitalVideoDisc("Pulp Fiction", "Crime", "Quentin Tarantino", 154, 21.99f);
-        DigitalVideoDisc dvd11 = new DigitalVideoDisc("Forrest Gump", "Drama", "Robert Zemeckis", 142, 19.99f);
-        DigitalVideoDisc dvd12 = new DigitalVideoDisc("The Matrix", "Science Fiction", "The Wachowskis", 136, 18.99f);
-        DigitalVideoDisc dvd13 = new DigitalVideoDisc("Gladiator", "Action", "Ridley Scott", 155, 22.99f);
-        DigitalVideoDisc dvd14 = new DigitalVideoDisc("Jurassic Park", "Science Fiction", "Steven Spielberg", 127, 24.99f);
-        DigitalVideoDisc dvd15 = new DigitalVideoDisc("The Shawshank Redemption", "Drama", "Frank Darabont", 142, 19.99f);
-        DigitalVideoDisc dvd16 = new DigitalVideoDisc("The Avengers", "Action", "Joss Whedon", 143, 26.99f);
-        DigitalVideoDisc dvd17 = new DigitalVideoDisc("Harry Potter and the Sorcerer's Stone", "Fantasy", "Chris Columbus", 152, 21.99f);
-        DigitalVideoDisc dvd18 = new DigitalVideoDisc("The Lord of the Rings: The Fellowship of the Ring", "Fantasy", "Peter Jackson", 178, 29.99f);
-        DigitalVideoDisc dvd19 = new DigitalVideoDisc("The Dark Knight Rises", "Action", "Christopher Nolan", 165, 24.99f);
-        DigitalVideoDisc dvd20 = new DigitalVideoDisc("Inglourious Basterds", "War", "Quentin Tarantino", 153, 22.99f);
-        DigitalVideoDisc dvd21 = new DigitalVideoDisc("Finding Nemo", "Animation", "Andrew Stanton", 100, 17.99f);
-        DigitalVideoDisc dvd22 = new DigitalVideoDisc("The Prestige", "Drama", "Christopher Nolan", 130, 21.99f);
-        DigitalVideoDisc dvd23 = new DigitalVideoDisc("Memento", "Thriller", "Christopher Nolan", 113, 19.99f);
-        DigitalVideoDisc dvd24 = new DigitalVideoDisc("Dunkirk", "War", "Christopher Nolan", 106, 23.99f);
-        DigitalVideoDisc dvd25 = new DigitalVideoDisc("The Departed", "Crime", "Martin Scorsese", 151, 22.99f);
-        DigitalVideoDisc dvd26 = new DigitalVideoDisc("The Social Network", "Drama", "David Fincher", 120, 18.99f);
-        DigitalVideoDisc dvd27 = new DigitalVideoDisc("The Silence of the Lambs", "Thriller", "Jonathan Demme", 118, 20.99f);
-        DigitalVideoDisc dvd28 = new DigitalVideoDisc("Saving Private Ryan", "War", "Steven Spielberg", 169, 24.99f);
-        DigitalVideoDisc dvd29 = new DigitalVideoDisc("Braveheart", "War", "Mel Gibson", 178, 21.99f);
-        DigitalVideoDisc dvd30 = new DigitalVideoDisc("The Green Mile", "Drama", "Frank Darabont", 189, 19.99f);
-        DigitalVideoDisc dvd31 = new DigitalVideoDisc("The Pianist", "Drama", "Roman Polanski", 150, 18.99f);
-        DigitalVideoDisc dvd32 = new DigitalVideoDisc("Goodfellas", "Crime", "Martin Scorsese", 146, 22.99f);
-        DigitalVideoDisc dvd33 = new DigitalVideoDisc("Schindler's List", "Drama", "Steven Spielberg", 195, 25.99f);
-        DigitalVideoDisc dvd34 = new DigitalVideoDisc("Fight Club", "Drama", "David Fincher", 139, 20.99f);
-        DigitalVideoDisc dvd35 = new DigitalVideoDisc("The Wolf of Wall Street", "Comedy", "Martin Scorsese", 180, 23.99f);
-        DigitalVideoDisc dvd36 = new DigitalVideoDisc("La La Land", "Romance", "Damien Chazelle", 128, 19.99f);
-        DigitalVideoDisc dvd37 = new DigitalVideoDisc("Coco", "Animation", "Lee Unkrich", 105, 17.99f);
-        DigitalVideoDisc dvd38 = new DigitalVideoDisc("Inside Out", "Animation", "Pete Docter", 95, 16.99f);
-        DigitalVideoDisc dvd39 = new DigitalVideoDisc("Up", "Animation", "Pete Docter", 96, 18.99f);
-        DigitalVideoDisc dvd40 = new DigitalVideoDisc("Toy Story", "Animation", "John Lasseter", 81, 15.99f);
+
+        CompactDisc cd1 = new CompactDisc("Hybrid Theory", "Rock", "Linkin Park", 15.99f, "Chester Bennington");
+        cd1.addTrack(new Track("Papercut", 185));
+        cd1.addTrack(new Track("One Step Closer", 155));
+        cd1.addTrack(new Track("With You", 200));
+        CompactDisc cd2 = new CompactDisc("Back in Black", "Rock", "AC/DC", 14.99f, "Brian Johnson");
+        cd2.addTrack(new Track("Hells Bells", 312));
+        cd2.addTrack(new Track("Shoot to Thrill", 315));
+        CompactDisc cd3 = new CompactDisc("The Dark Side of the Moon", "Progressive Rock", "Pink Floyd", 16.99f, "David Gilmour");
+        cd3.addTrack(new Track("Speak to Me", 90));
+        cd3.addTrack(new Track("Breathe", 163));
+
+        Book book1 = new Book("The Great Gatsby", "Fiction", 10.99f);
+        book1.addAuthor("F. Scott Fitzgerald");
+        Book book2 = new Book("1984", "Dystopian", 8.99f);
+        book2.addAuthor("George Orwell");
+        Book book3 = new Book("To Kill a Mockingbird", "Fiction", 12.99f);
+        book3.addAuthor("Harper Lee");
 
         Scanner scanner = new Scanner(System.in);
-        boolean loggedIn = false;
-        String username = "";
 
-        Media[] store = {
-            dvd1, dvd2, dvd3, dvd4, dvd5,
-            dvd6, dvd7, dvd8, dvd9, dvd10,
-            dvd11, dvd12, dvd13, dvd14, dvd15,
-            dvd16, dvd17, dvd18, dvd19, dvd20,
-            dvd21, dvd22, dvd23, dvd24, dvd25,
-            dvd26, dvd27, dvd28, dvd29, dvd30,
-            dvd31, dvd32, dvd33, dvd34, dvd35,
-            dvd36, dvd37, dvd38, dvd39, dvd40
-        };
+        Cart cart = new Cart();
+        cart.addMedia(dvd1);    // Pre-add some items for testing
+        cart.addMedia(cd1);
+        cart.addMedia(book1);
 
-        // Test equality
-        // DigitalVideoDisc testDvd1 = new DigitalVideoDisc("The Lion Kin", "Animation", "Roger Allers", 87, 19.95f);
-        // DigitalVideoDisc testDvd2 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        // System.out.println("Are the two DVDs equal? " + testDvd1.equals(testDvd2));
+        Store store = new Store();
+        store.addMedia(dvd1);
+        store.addMedia(dvd2);
+        store.addMedia(dvd3);
+        store.addMedia(cd1);
+        store.addMedia(cd2);
+        store.addMedia(cd3);
+        store.addMedia(book1);
+        store.addMedia(book2);
+        store.addMedia(book3);
 
-        // Track track1 = new Track("Song A", 300);
-        // Track track2 = new Track("Song B", 300);
-        
-        // System.out.println("Are the two Tracks equal? " + track1.equals(track2));
+        while (true) {
+            showMenu();
+            int choice = -1;
+            try { choice = Integer.parseInt(scanner.nextLine().trim()); } catch (Exception e) { choice = -1; }
+
+            if (choice == 0) {
+                System.out.println("Exiting the application.");
+                break;
+            }
+
+            if (choice == 1) { // View store
+                boolean backToMain = false;
+                while (!backToMain) {
+                    store.printStore(); // Display store
+                    storeMenu();
+                    int storeChoice = -1;
+                    storeChoice = Integer.parseInt(scanner.nextLine().trim());
+
+                    switch (storeChoice) {
+                        case 0:
+                            backToMain = true;
+                            break;
+                        case 1: { // See a media's details
+                            System.out.print("Enter the media's title: ");
+                            String title = scanner.nextLine().trim();
+                            Media found = null;
+                            found = store.findMediaByTitle(title, store);
+                            if (found == null) {
+                                System.out.println("Media not found");
+                                break;
+                            } else {
+                                System.out.println(found.getAllInfo());
+                            }
+                            mediaDetailsMenu(found);
+                            int mdChoice = -1;
+                            mdChoice = Integer.parseInt(scanner.nextLine().trim());
+                            if (mdChoice == 1) {
+                                cart.addMedia(found);
+                            } else if (mdChoice == 2) {
+                                found.play();
+                            } // 0 or others -> just return to store menu
+                            break;
+                        }
+                        case 2: { // Add a media to cart
+                            System.out.print("Enter the media's title: ");
+                            String title = scanner.nextLine().trim();
+                            Media found = null;
+                            found = store.findMediaByTitle(title, store);
+                            if (found == null) {
+                                System.out.println("Media not found");
+                                break;
+                            } else {
+                                cart.addMedia(found);
+                                System.out.println("Number of items in cart: " + cart.getQtyOrdered() + "");
+                            }
+                            break;
+                        }
+                        case 3: { // Play a media
+                            System.out.print("Enter the media's title: ");
+                            String title = scanner.nextLine().trim();
+                            Media found = null;
+                            found = store.findMediaByTitle(title, store);
+                            if (found == null) {
+                                System.out.println("Media not found");
+                            } else {
+                                found.play();
+                            }
+                            break;
+                        }
+                        case 4: { // See current cart
+                            boolean backToStore = false;
+                            while (!backToStore) {
+                                cart.printCart();
+                                cartMenu();
+                                int cartChoice = -1;
+                                cartChoice = Integer.parseInt(scanner.nextLine().trim());
+                                switch (cartChoice) {
+                                    case 0:
+                                        backToStore = true;
+                                        break;
+                                    case 1: { // Filter medias in cart
+                                        while (true) {
+                                            filterMenu();
+                                            int filterChoice = -1;
+                                            filterChoice = Integer.parseInt(scanner.nextLine().trim());
+                                            if (filterChoice == 0) {
+                                                break;
+                                            } else if (filterChoice == 1) {
+                                                System.out.print("Enter title to filter: ");
+                                                String title = scanner.nextLine().trim();
+                                                cart.filterByTitle(title);
+                                            } else if (filterChoice == 2) {
+                                                System.out.print("Enter ID to filter: ");
+                                                int id = Integer.parseInt(scanner.nextLine().trim());
+                                                cart.filterById(id);
+                                            } else {
+                                                System.out.println("Invalid option. Please choose 0-1-2.");
+                                            }
+                                        }
+                                        break;
+                                    }
+                                    case 2: { // Sort medias in cart
+                                        while (true) {
+                                            sortMenu();
+                                            int sortChoice = -1;
+                                            sortChoice = Integer.parseInt(scanner.nextLine().trim());
+                                            if (sortChoice == 0) {
+                                                break;
+                                            } else if (sortChoice == 1) {
+                                                cart.sortByTitle();
+                                                System.out.println("Cart sorted by title.");
+                                                break;
+                                            } else if (sortChoice == 2) {
+                                                cart.sortByCost();
+                                                System.out.println("Cart sorted by cost.");
+                                                break;
+                                            } else {
+                                                System.out.println("Invalid option. Please choose 0-1-2.");
+                                            }
+                                        }
+                                    }
+                                    case 3: { // Remove media from cart
+                                        System.out.print("Enter the media's title to remove: ");
+                                        String title = scanner.nextLine().trim();
+                                        Media found = null;
+                                        found = store.findMediaByTitle(title, store);
+                                        if (found == null) {
+                                            System.out.println("Media not found");
+                                        } else {
+                                            cart.removeMedia(found);
+                                            System.out.println("Number of items in cart: " + cart.getQtyOrdered() + "");
+                                        }
+                                        break;
+                                    }
+                                    case 4: { // Play a media
+                                        System.out.print("Enter the media's title: ");
+                                        String title = scanner.nextLine().trim();
+                                        Media found = null;
+                                        found = store.findMediaByTitle(title, store);
+                                        if (found == null) {
+                                            System.out.println("Media not found");
+                                        } else {
+                                            found.play();
+                                        }
+                                        break;
+                                    }
+                                    case 5: { // Place order
+                                        System.out.println("Order created. Thank you for your purchase!");
+                                        cart.clearCart();
+                                        System.out.println("Your cart is now empty.");
+                                        break;
+                                    }
+                                    default:
+                                        System.out.println("Invalid option. Please choose 0-1-2-3-4-5.");
+                                }
+                            }
+                            break;
+                        }
+                        default:
+                            System.out.println("Invalid option. Please choose 0-1-2-3-4.");
+                    }
+                }
+            } else if (choice == 2) { // Update store
+                System.out.println("Feature not yet available");
+                break;
+            } else if (choice == 3) { // See current cart
+                boolean backToMain = false;
+                while (!backToMain) {
+                    cartMenu();
+                    int cartChoice = -1;
+                    cartChoice = Integer.parseInt(scanner.nextLine().trim());
+                    switch (cartChoice) {
+                        case 0:
+                            backToMain = true;
+                            break;
+                        case 1: { // Filter medias in cart
+                            while (true) {
+                                filterMenu();
+                                int filterChoice = -1;
+                                filterChoice = Integer.parseInt(scanner.nextLine().trim());
+                                if (filterChoice == 0) {
+                                    break;
+                                } else if (filterChoice == 1) {
+                                    System.out.print("Enter title to filter: ");
+                                    String title = scanner.nextLine().trim();
+                                    cart.filterByTitle(title);
+                                } else if (filterChoice == 2) {
+                                    System.out.print("Enter ID to filter: ");
+                                    int id = Integer.parseInt(scanner.nextLine().trim());
+                                    cart.filterById(id);
+                                } else {
+                                    System.out.println("Invalid option. Please choose 0-1-2.");
+                                }
+                            }
+                            break;
+                        }
+                        case 2: { // Sort medias in cart
+                            while (true) {
+                                sortMenu();
+                                int sortChoice = -1;
+                                sortChoice = Integer.parseInt(scanner.nextLine().trim());
+                                if (sortChoice == 0) {
+                                    break;
+                                } else if (sortChoice == 1) {
+                                    cart.sortByTitle();
+                                    System.out.println("Cart sorted by title.");
+                                    break;
+                                } else if (sortChoice == 2) {
+                                    cart.sortByCost();
+                                    System.out.println("Cart sorted by cost.");
+                                    break;
+                                } else {
+                                    System.out.println("Invalid option. Please choose 0-1-2.");
+                                }
+                            }
+                        }
+                        case 3: { // Remove media from cart
+                            System.out.print("Enter the media's title to remove: ");
+                            String title = scanner.nextLine().trim();
+                            Media found = null;
+                            found = store.findMediaByTitle(title, store);
+                            if (found == null) {
+                                System.out.println("Media not found");
+                            } else {
+                                cart.removeMedia(found);
+                                System.out.println("Number of items in cart: " + cart.getQtyOrdered() + "");
+                            }
+                            break;
+                        }
+                        case 4: { // Play a media
+                            System.out.print("Enter the media's title: ");
+                            String title = scanner.nextLine().trim();
+                            Media found = null;
+                            found = store.findMediaByTitle(title, store);
+                            if (found == null) {
+                                System.out.println("Media not found");
+                            } else {
+                                found.play();
+                            }
+                            break;
+                        }
+                        case 5: { // Place order
+                            System.out.println("Order created. Thank you for your purchase!");
+                            cart.clearCart();
+                            System.out.println("Your cart is now empty.");
+                            break;
+                        }
+                        default:
+                            System.out.println("Invalid option. Please choose 0-1-2-3-4-5.");
+                    }
+                }
+            } else {
+                System.out.println("Invalid option. Please choose 0-1-2-3.");
+            }
+        }
+        scanner.close();
     }
 }

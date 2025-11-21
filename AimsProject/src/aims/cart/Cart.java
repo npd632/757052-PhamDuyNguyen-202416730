@@ -32,7 +32,7 @@ public class Cart {
             qtyOrdered--;
             System.out.println("Removed from cart: " + media.getTitle());
         } else {
-            System.out.println("Item not found in cart: " + media.getTitle());
+            System.out.println("Media not found" + media.getTitle());
         }
     }
 
@@ -45,12 +45,12 @@ public class Cart {
     }
 
     public void printCart() {
-        System.out.println("***********************************CART***********************************\n Ordered Items:\n");
+        System.out.println("**********************************************CART***********************************************\n Ordered Items:\n");
         for (int i = 0; i < qtyOrdered; i++) {
-            System.out.println((i + 1) + ". [" + itemsOrdered.get(i).getClass().getSimpleName() + "] " + itemsOrdered.get(i).getAllInfo());
+            System.out.println((i + 1) + ". " + itemsOrdered.get(i).getAllInfo());
         }
         System.out.println("Total cost: $" + totalCost());
-        System.out.println("**************************************************************************");
+        System.out.println("*************************************************************************************************");
     }
 
     public void sortByTitle() {
@@ -81,36 +81,41 @@ public class Cart {
         return qtyOrdered;
     }
 
-    // public void searchByTitle(String title) {
-    //     System.out.println("Search results for title containing '" + title + "':");
-    //     boolean found = false;
-    //     for (int i = 0; i < qtyOrdered; i++) {
-    //         if (itemsOrdered.get(i).getTitle().toLowerCase().contains(title.toLowerCase())) {
-    //             System.out.println((i + 1) + ". " + itemsOrdered.get(i).getAllInfo());
-    //             found = true;
-    //         }
-    //     }
-    //     if (!found) {
-    //         System.out.println("No items found with title containing '" + title + "'.");
-    //     }
-    // }
+    public void filterByTitle(String title) {
+        System.out.println("Filter results for title containing '" + title + "':");
+        boolean found = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered.get(i).getTitle().toLowerCase().contains(title.toLowerCase())) {
+                System.out.println((i + 1) + ". " + itemsOrdered.get(i).getAllInfo());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Media not found");
+        }
+    }
 
-    // public void searchById(int id) {
-    //     System.out.println("Search results for ID '" + id + "':");
-    //     boolean found = false;
-    //     for (int i = 0; i < qtyOrdered; i++) {
-    //         if (itemsOrdered.get(i).getId() == id) {
-    //             System.out.println((i + 1) + ". " + itemsOrdered.get(i).getAllInfo());
-    //             found = true;
-    //         }
-    //     }
-    //     if (!found) {
-    //         System.out.println("No items found with ID '" + id + "'.");
-    //     }
-    // }
+    public void filterById(int id) {
+        System.out.println("Filter results for ID '" + id + "':");
+        boolean found = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered.get(i).getId() == id) {
+                System.out.println((i + 1) + ". " + itemsOrdered.get(i).getAllInfo());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Media not found");
+        }
+    }
 
     public Media[] getItemsOrdered() {
         return itemsOrdered.toArray(new DigitalVideoDisc[0]);
+    }
+
+    public void clearCart() {
+        itemsOrdered.clear();
+        qtyOrdered = 0;
     }
 
 }

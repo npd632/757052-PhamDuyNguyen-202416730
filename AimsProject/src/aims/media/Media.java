@@ -34,9 +34,7 @@ public abstract class Media {
         return cost;
     }
 
-    public String getAllInfo() {
-        return "ID: " + id + " | Title: " + title + " | Category: " + category + " | Cost: $" + cost;
-    }
+    public abstract String getAllInfo();
 
     public void setId(int id) {
         this.id = id;
@@ -54,7 +52,7 @@ public abstract class Media {
         this.cost = cost;
     }
 
-    public abstract String toString();
+    public abstract void play();
     
     @Override
     public boolean equals(Object obj) {

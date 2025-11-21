@@ -12,14 +12,9 @@ public class Book extends Media {
 
     @Override
     public String getAllInfo() {
-        return "Book - " + getTitle() + " - " + getCategory() + " - " + String.join(", ", authors) + ": " + "$" + getCost();
+        return "Book - ID: " + this.id + " - " + getTitle() + " - " + getCategory() + " - " + String.join(", ", authors) + ": " + "$" + getCost();
     }
-
-    @Override   
-    public String toString() {
-        return "Book - " + getTitle() + " - " + getCategory() + " - " + String.join(", ", authors) + ": " + "$" + getCost();
-    }
-
+    
     public Book(String title, String category, float cost) {
         super();
         setTitle(title);
@@ -35,6 +30,10 @@ public class Book extends Media {
         } else {
             System.out.println("Author already exists!");
         }
+    }
+
+    public void play() {
+        System.out.println("Cannot play a book: " + getTitle());
     }
 
     public void removeAuthor(String authorName) {
