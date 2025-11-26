@@ -1,30 +1,29 @@
-Question: Is JAVA a Pass by Value or a Pass by Reference programming language?
+Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts?
+=> Aggregate relationship:
+Compact Disc <- Track
+Media <- Cart
+Media <- Store
 
-Answer: JAVA is a Pass-by-value programming language.
 
-This is easily seen when passing primitive types (boolean, integer, etc.), but seems, at first glance (at least to me) somewhat counter-intuitive when
-it comes to objects.
+When overriding the equals() method of the Object class, you will have to cast the Object parameter obj to the type of Object that you are dealing with. For example, in the Media class, you must cast the Object obj to a Media, and then check the equality of the two objects’ attributes as the above requirements (i.e. title for Media; title and length for Track). If the passing object is not an instance of Media, what happens?
+=> The program will crash with a 'ClassCastException'
+=> This can be prevented by checking the input parameter type using instanceof (which I have implemented in my own code).
 
-This is because in JAVA, a variable for an object does not hold the object itself, but rather a reference to where the object is stored in the computer's
-memory, or in a more imaginable term, the key to a house. So, when you pass an object to a method, what is copied is not the object, but rather the reference
-to that object (i.e. create another key to the same house).
 
-When you use 1 key to enter the house and change something in it (i.e. modify the object):
+What class should implement the Comparable interface?
+=> Precisely, all classes that has cost or title (Media, Disc, CD, DVD, Book)
 
-public static void modify(Object referenceCopy) {
-    modify referenceCopy... 
-}
 
-Anyone else with a key can obviously see these changes. So, you changed the object (what the value points to), not the reference (the value)
+In those classes, how should you implement the compareTo() method to reflect the ordering that we want?
+=> For title comparison, return the value of the comparison by title if titles differ. If titles are the same, proceed to cost comparison as a tie-breaker
+=> For cost comparison, reverse the process (cost first then title)
 
-When you reassign the duplicated key to use for a new house (i.e. reassign the variable to another object):
 
-public static void reassign(Object referenceCopy) {
-    referenceCopy = new Object(...);
-}
+Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+=> No, we can't, since the Comparable interface is designed to define the single "natural ordering" of a class. You can only implement the compareTo() method once in the Media class
+=> To solve this, use Comparator instead, and create 2 different comparators based on the two ordering rules we need
 
-The original reference (the original key) is still pointing to the initial object.
-If Java were "pass-by-reference," changing the copy to a new object would have also changed the original variable. It does not.
 
-This proof is based on my own testing using StringBuilder, but the code is rather long so I would prefer not include it here. I hope this doesn't affect
-the credibility of my proof :>
+Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+=> Yes, this is allowed since DVD inherits from Media, thus we can simply override the comparision method and redefine for the required ordering rule.
+=> However, this may be risky since if the comparison method for DVD is modified to Title - Length - Cost, you have to also handle the situation when a DVD is compared to a different type which does not have Length (e.g. Book).
