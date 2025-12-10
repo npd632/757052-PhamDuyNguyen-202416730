@@ -110,7 +110,7 @@ public class Cart {
     }
 
     public Media[] getItemsOrdered() {
-        return itemsOrdered.toArray(new DigitalVideoDisc[0]);
+        return itemsOrdered.toArray(new Media[0]);
     }
 
     public void clearCart() {

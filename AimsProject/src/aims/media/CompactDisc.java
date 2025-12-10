@@ -19,6 +19,10 @@ public class CompactDisc extends Disc implements Play {
         }
         return totalLength;
     }
+
+    public List<Track> getTracks() {
+        return tracks;
+    }
     
     public void setArtist(String artist) {
         this.artist = artist;
