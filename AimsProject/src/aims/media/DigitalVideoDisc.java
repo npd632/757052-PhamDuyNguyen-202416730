@@ -1,5 +1,7 @@
 package aims.media;
 
+import aims.exceptions.PlayerException;
+
 public class DigitalVideoDisc extends Disc implements Play {
 
     @Override
@@ -8,10 +10,14 @@ public class DigitalVideoDisc extends Disc implements Play {
     }
 
     @Override
-    public void play() {
-        System.out.println("Playing DVD: " + this.getTitle());
-        System.out.println("DVD length: " + this.getLength()); 
+    public void play() throws PlayerException {
+        if (this.getLength() > 0) {
+            System.out.println("Playing DVD: " + this.getTitle());
+            System.out.println("DVD length: " + this.getLength());
+        } else {
+            throw new PlayerException("ERROR: DVD length is non-positive!");
     }
+}
 
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
         setTitle(title);

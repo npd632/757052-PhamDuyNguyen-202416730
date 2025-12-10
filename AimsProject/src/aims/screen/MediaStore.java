@@ -1,9 +1,11 @@
 package aims.screen;
 import javax.swing.*;
-import aims.media.Media;
+
 import aims.media.*;
 import aims.cart.Cart;
-import javax.swing.JButton;
+import aims.exceptions.LimitExceededException;
+import aims.exceptions.PlayerException;
+
 import java.awt.*;
 
 public class MediaStore extends JPanel{
@@ -51,33 +53,49 @@ public class MediaStore extends JPanel{
 
     private void addToCart() {
         if (cart != null) {
-            cart.addMedia(media);
+            try {
+                cart.addMedia(media);
+                
+                JOptionPane.showMessageDialog(this,
+                        "Media '" + media.getTitle() + "' has been added to cart.",
+                        "Add to Cart",
+                        JOptionPane.INFORMATION_MESSAGE);
+                        
+            } catch (LimitExceededException e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Cart Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        JOptionPane.showMessageDialog(this,
-                "Media '" + media.getTitle() + "' has been added to cart.",
-                "Add to Cart",
-                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void playMedia() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(new JLabel("Media Playing... "), BorderLayout.CENTER);
+        if (media instanceof Play) {
+            try {
+                ((Play) media).play();
+                JPanel panel = new JPanel(new BorderLayout());
+                panel.add(new JLabel("Media Playing... "), BorderLayout.CENTER);
 
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Playing: " + media.getTitle());
-        dialog.setSize(300, 150);
-        dialog.setLocationRelativeTo(this);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                JDialog dialog = new JDialog();
+                dialog.setTitle("Playing: " + media.getTitle());
+                dialog.setSize(300, 150);
+                dialog.setLocationRelativeTo(this);
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(e -> dialog.dispose());
+                JButton backButton = new JButton("Back");
+                backButton.addActionListener(e -> dialog.dispose());
 
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.add(backButton);
+                JPanel bottomPanel = new JPanel();
+                bottomPanel.add(backButton);
 
-        dialog.add(panel, BorderLayout.CENTER);
-        dialog.add(bottomPanel, BorderLayout.SOUTH);
-        dialog.setVisible(true);
+                dialog.add(panel, BorderLayout.CENTER);
+                dialog.add(bottomPanel, BorderLayout.SOUTH);
+                dialog.setVisible(true);
+
+            } catch (PlayerException e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Media Length", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
 }
+
+

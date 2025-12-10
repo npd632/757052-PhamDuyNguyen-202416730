@@ -1,6 +1,7 @@
 package aims.media;
 import java.util.Comparator;
 import aims.media.comparator.MediaComparatorByTitleCost;
+import aims.exceptions.PlayerException;
 import aims.media.comparator.MediaComparatorByCostTitle;
 
 public abstract class Media {
@@ -52,14 +53,27 @@ public abstract class Media {
         this.cost = cost;
     }
 
-    public abstract void play();
+    public abstract void play() throws PlayerException;
     
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Media) {
-            Media other = (Media) obj;
-            return this.title == other.title;
+        if (obj == null) {
+            return false;
         }
+        
+        if (!(obj instanceof Media)) {
+            return false;
+        }
+
+        Media otherMedia = (Media) obj;
+        try {
+            if (this.getTitle().equals(otherMedia.getTitle())) {
+                return true;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+        
         return false;
     }
 }

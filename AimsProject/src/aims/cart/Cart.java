@@ -1,29 +1,25 @@
 package aims.cart;
-import java.util.ArrayList;
-import aims.media.Media;
 
-import aims.media.DigitalVideoDisc;
+// 1. USE YOUR CUSTOM EXCEPTION
+import aims.exceptions.LimitExceededException; 
+import aims.media.Media;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Cart {
     public static final int MAX_NUMBERS_ORDERED = 20;
-
     private int qtyOrdered = 0;
-    
-    private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+    private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 
-    public void addMedia(Media media) {
-        for (Media item : itemsOrdered) {
-            if (item.equals(media)) {
-                System.out.println("Item already in cart: " + media.getTitle());
-                return;
-            }
-        }
-        if (qtyOrdered < MAX_NUMBERS_ORDERED) {
+    public void addMedia(Media media) throws LimitExceededException {
+        
+        if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
             itemsOrdered.add(media);
-            qtyOrdered++;
-            System.out.println("Added to cart: " + media.getTitle());
+            System.out.println("The media has been added");
         } else {
-            System.out.println("The cart is full. Cannot add more items.");
+            throw new LimitExceededException("ERROR: The number of media has reached its limit");
         }
     }
 
@@ -32,7 +28,7 @@ public class Cart {
             qtyOrdered--;
             System.out.println("Removed from cart: " + media.getTitle());
         } else {
-            System.out.println("Media not found" + media.getTitle());
+            System.out.println("Media not found " + media.getTitle());
         }
     }
 
@@ -43,79 +39,92 @@ public class Cart {
         }
         return total;
     }
-
-    public void printCart() {
-        System.out.println("**********************************************CART***********************************************\n Ordered Items:\n");
-        for (int i = 0; i < qtyOrdered; i++) {
-            System.out.println((i + 1) + ". " + itemsOrdered.get(i).getAllInfo());
-        }
-        System.out.println("Total cost: $" + totalCost());
-        System.out.println("*************************************************************************************************");
-    }
-
-    public void sortByTitle() {
-        for (int i = 0; i < qtyOrdered - 1; i++) {
-            for (int j = i + 1; j < qtyOrdered; j++) {
-                if (itemsOrdered.get(i).getTitle().compareTo(itemsOrdered.get(j).getTitle()) > 0) {
-                    Media temp = itemsOrdered.get(i);
-                    itemsOrdered.set(i, itemsOrdered.get(j));
-                    itemsOrdered.set(j, temp);
-                }
-            }
-        }
-    }
-
-    public void sortByCost() {
-        for (int i = 0; i < qtyOrdered - 1; i++) {
-            for (int j = i + 1; j < qtyOrdered; j++) {
-                if (itemsOrdered.get(i).getCost() > itemsOrdered.get(j).getCost()) {
-                    Media temp = itemsOrdered.get(i);
-                    itemsOrdered.set(i, itemsOrdered.get(j));
-                    itemsOrdered.set(j, temp);
-                }
-            }
-        }
+    
+    public ObservableList<Media> getItemsOrdered() {
+        return itemsOrdered;
     }
 
     public int getQtyOrdered() {
         return qtyOrdered;
     }
+    
+    public void filterById(int id) {
+        boolean found = false;
+        System.out.println("Filtering by ID: " + id);
+        for (Media media : itemsOrdered) {
+            if (media.getId() == id) {
+                System.out.println("Result: " + media.toString());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No media found with ID: " + id);
+        }
+    }
 
     public void filterByTitle(String title) {
-        System.out.println("Filter results for title containing '" + title + "':");
         boolean found = false;
-        for (int i = 0; i < qtyOrdered; i++) {
-            if (itemsOrdered.get(i).getTitle().toLowerCase().contains(title.toLowerCase())) {
-                System.out.println((i + 1) + ". " + itemsOrdered.get(i).getAllInfo());
+        System.out.println("Filtering by Title: " + title);
+        for (Media media : itemsOrdered) {
+            if (media.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                System.out.println("Result: " + media.toString());
                 found = true;
             }
         }
         if (!found) {
-            System.out.println("Media not found");
+            System.out.println("No media found matching: " + title);
         }
     }
 
-    public void filterById(int id) {
-        System.out.println("Filter results for ID '" + id + "':");
-        boolean found = false;
-        for (int i = 0; i < qtyOrdered; i++) {
-            if (itemsOrdered.get(i).getId() == id) {
-                System.out.println((i + 1) + ". " + itemsOrdered.get(i).getAllInfo());
-                found = true;
+    public void sortByTitle() {
+        Collections.sort(itemsOrdered, new Comparator<Media>() {
+            @Override
+            public int compare(Media m1, Media m2) {
+                int titleComparison = m1.getTitle().compareToIgnoreCase(m2.getTitle());
+                
+                if (titleComparison != 0) {
+                    return titleComparison;
+                }
+                
+                return Double.compare(m2.getCost(), m1.getCost());
             }
-        }
-        if (!found) {
-            System.out.println("Media not found");
-        }
+        });
+        System.out.println("Cart sorted by Title.");
     }
 
-    public Media[] getItemsOrdered() {
-        return itemsOrdered.toArray(new Media[0]);
+    public void sortByCost() {
+        Collections.sort(itemsOrdered, new Comparator<Media>() {
+            @Override
+            public int compare(Media m1, Media m2) {
+                int costComparison = Double.compare(m2.getCost(), m1.getCost());
+                
+                if (costComparison != 0) {
+                    return costComparison;
+                }
+            
+                return m1.getTitle().compareToIgnoreCase(m2.getTitle());
+            }
+        });
+        System.out.println("Cart sorted by Cost.");
+    }
+
+    public void printCart() {
+        System.out.println("***********************CART***********************");
+        System.out.println("Ordered Items:");
+        
+        for (int i = 0; i < itemsOrdered.size(); i++) {
+            System.out.println((i + 1) + ". " + itemsOrdered.get(i).toString());
+        }
+        
+        System.out.println("Total cost: " + totalCost() + " $");
+        System.out.println("***************************************************");
     }
 
     public void clearCart() {
         itemsOrdered.clear();
-        qtyOrdered = 0;
+        
+        qtyOrdered = 0; 
+        
+        System.out.println("Cart has been cleared.");
     }
-
 }

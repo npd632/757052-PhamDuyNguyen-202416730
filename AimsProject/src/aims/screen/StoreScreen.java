@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class StoreScreen extends JFrame {
     
-    private Store Store;
+    private Store store;
     private Cart cart;
 
     JPanel createNorth() {
@@ -27,13 +27,45 @@ public class StoreScreen extends JFrame {
         JMenu menu = new JMenu("Options");
 
         JMenu smUpdateStore = new JMenu("Update Store");
-        smUpdateStore.add(new JMenuItem("Add Book"));
-        smUpdateStore.add(new JMenuItem("Add CD"));
-        smUpdateStore.add(new JMenuItem("Add DVD"));
+        
+        // Link "Add Book"
+        JMenuItem addBook = new JMenuItem("Add Book");
+        addBook.addActionListener(e -> {
+            new AddBookToStoreScreen(store, cart);
+            this.dispose();
+        });
+        smUpdateStore.add(addBook);
+
+        // Link "Add CD"
+        JMenuItem addCD = new JMenuItem("Add CD");
+        addCD.addActionListener(e -> {
+            new AddCompactDiscToStoreScreen(store, cart);
+            this.dispose();
+        });
+        smUpdateStore.add(addCD);
+
+        // Link "Add DVD"
+        JMenuItem addDVD = new JMenuItem("Add DVD");
+        addDVD.addActionListener(e -> {
+            new AddDigitalVideoDiscToStoreScreen(store, cart);
+            this.dispose();
+        });
+        smUpdateStore.add(addDVD);
 
         menu.add(smUpdateStore);
-        menu.add(new JMenuItem("View Store"));
-        menu.add(new JMenuItem("View Cart"));
+        
+        // Link "View Store" (Refresh)
+        JMenuItem viewStore = new JMenuItem("View Store");
+        viewStore.addActionListener(e -> {
+            new StoreScreen(store, cart);
+            this.dispose();
+        });
+        menu.add(viewStore);
+        
+        // Link "View Cart" (Menu Item)
+        JMenuItem viewCart = new JMenuItem("View Cart");
+        viewCart.addActionListener(e -> new CartScreen(cart));
+        menu.add(viewCart);
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -53,7 +85,8 @@ public class StoreScreen extends JFrame {
         JButton cartButton = new JButton("View Cart");
         cartButton.setPreferredSize(new Dimension(100, 50));
         cartButton.setMaximumSize(new Dimension(100, 50));
-        cartButton.addActionListener(e -> showCart());
+        
+        cartButton.addActionListener(e -> new CartScreen(cart)); 
 
         header.add(Box.createRigidArea(new Dimension(10, 10)));
         header.add(title);
@@ -68,28 +101,17 @@ public class StoreScreen extends JFrame {
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(0, 3, 10, 10));
 
-        ArrayList<Media> mediaInStore = Store.getItemsInStore();
+        ArrayList<Media> mediaInStore = store.getItemsInStore();
         for (Media m : mediaInStore) {
             MediaStore cell = new MediaStore(m, cart);
             grid.add(cell);
         }
 
-        int cellHeight = 180;
-        int numRows = (int) Math.ceil((double) mediaInStore.size() / 3);
-        int preferredHeight = numRows * cellHeight + (numRows - 1) * 10;
-        grid.setPreferredSize(new Dimension(900, preferredHeight));
-
-        JScrollPane scroll = new JScrollPane(grid);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.getVerticalScrollBar().setUnitIncrement(16);
-
-        JPanel center = new JPanel(new BorderLayout());
-        center.add(scroll, BorderLayout.CENTER);
-        return center;
+        return grid;
     }
 
     public StoreScreen(Store store, Cart cart) {
-        this.Store = store;
+        this.store = store;
         this.cart = cart;
         Container cp = getContentPane();
         cp.setLayout(new BorderLayout());
@@ -100,32 +122,6 @@ public class StoreScreen extends JFrame {
         setVisible(true);
         setTitle("Store");
         setSize(1024, 768);
-    }
-
-    private void showCart() {
-        JPanel panel = new JPanel(new BorderLayout());
-        
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        
-        if (cart.getQtyOrdered() == 0) {
-            textArea.setText("Your cart is empty.");
-        } else {
-            StringBuilder cartContent = new StringBuilder();
-            for (int i = 0; i < cart.getQtyOrdered(); i++) {
-                cartContent.append((i + 1)).append(". ").append(cart.getItemsOrdered()[i].getTitle())
-                          .append(" - $").append(cart.getItemsOrdered()[i].getCost()).append("\n");
-            }
-            cartContent.append("\nTotal Cost: $").append(String.format("%.2f", cart.totalCost()));
-            textArea.setText(cartContent.toString());
-        }
-        
-        JScrollPane scroll = new JScrollPane(textArea);
-        panel.add(scroll, BorderLayout.CENTER);
-        
-        JOptionPane.showMessageDialog(this, panel, "Shopping Cart", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void main(String[] args) {
@@ -142,7 +138,7 @@ public class StoreScreen extends JFrame {
         cd1.addTrack(new Track("With You", 200));
         CompactDisc cd2 = new CompactDisc("Back in Black", "Rock", "AC/DC", 14.99f, "Brian Johnson");
         cd2.addTrack(new Track("Hells Bells", 312));
-        cd2.addTrack(new Track("Shoot to Thrill", 315));
+        cd2.addTrack(new Track("Shoot to Thrill", 315));    
         CompactDisc cd3 = new CompactDisc("The Dark Side of the Moon", "Progressive Rock", "Pink Floyd", 16.99f, "David Gilmour");
         cd3.addTrack(new Track("Speak to Me", 90));
         cd3.addTrack(new Track("Breathe", 163));
@@ -164,6 +160,14 @@ public class StoreScreen extends JFrame {
         store.addMedia(book1);
         store.addMedia(book2);
         store.addMedia(book3);
+
+        DigitalVideoDisc brokenDVD = new DigitalVideoDisc("Broken DVD", "Test", "Tester", 0, 5.0f); // Length is 0!
+        store.addMedia(brokenDVD);
+
+        CompactDisc brokenCD = new CompactDisc("Broken CD", "Bruh", "Lmao", 10, "Kekw");
+        brokenCD.addTrack(new Track("Good Track", 5));
+        brokenCD.addTrack(new Track("Bad Track", 0)); // Length 0!
+        store.addMedia(brokenCD);
 
         new StoreScreen(store, cart);
     }

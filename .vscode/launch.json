@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "StoreScreen",
+            "request": "launch",
+            "mainClass": "aims.screen.StoreScreen",
+            "projectName": "OOP_TN_4c30ae79"
+        },
+        {
+            "type": "java",
+            "name": "CartScreenTest",
+            "request": "launch",
+            "mainClass": "aims.screen.CartScreenTest",
+            "projectName": "OOP_TN_4c30ae79"
+        },
+        {
+            "type": "java",
             "name": "Lancher",
             "request": "launch",
             "mainClass": "OtherProjects.JavaFX.Lancher",
@@ -30,7 +44,7 @@
             "name": "Run App",
             "request": "launch",
             "mainClass": "Main",
-            "vmArgs": "--module-path \"C:/Java/javafx-sdk-25.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path \"C:/Java/javafx-sdk-25.0.1/lib\" --add-modules javafx.controls,javafx.fxml,javafx.swing"
         }
     ]
 }

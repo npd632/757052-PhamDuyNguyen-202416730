@@ -44,7 +44,7 @@ public class GarbageCreator {
             }
             endTime = System.currentTimeMillis();
             duration = endTime - startTime;
-            System.out.println("Stringbuilder execution time: " + duration + "ms");
+            System.out.println(s1 + " Stringbuilder execution time: " + duration + "ms");
 
         } catch (IOException e) {
             System.err.println("An I/O error occurred: " + e.getMessage());
